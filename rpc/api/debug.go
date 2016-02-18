@@ -22,14 +22,14 @@ import (
 	"time"
 
 	"github.com/ethereum/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/rpc/codec"
-	"github.com/ethereum/go-ethereum/rpc/shared"
-	"github.com/ethereum/go-ethereum/xeth"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/core/state"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/eth"
+	"github.com/immesys/bw2bc/rlp"
+	"github.com/immesys/bw2bc/rpc/codec"
+	"github.com/immesys/bw2bc/rpc/shared"
+	"github.com/immesys/bw2bc/xeth"
 	"github.com/rcrowley/go-metrics"
 )
 

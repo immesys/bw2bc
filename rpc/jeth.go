@@ -20,14 +20,14 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/jsre"
-	"github.com/ethereum/go-ethereum/logger"
-	"github.com/ethereum/go-ethereum/logger/glog"
-	"github.com/ethereum/go-ethereum/rpc/comms"
-	"github.com/ethereum/go-ethereum/rpc/shared"
-	"github.com/ethereum/go-ethereum/rpc/useragent"
-	"github.com/ethereum/go-ethereum/xeth"
+	"github.com/immesys/bw2bc/cmd/utils"
+	"github.com/immesys/bw2bc/jsre"
+	"github.com/immesys/bw2bc/logger"
+	"github.com/immesys/bw2bc/logger/glog"
+	"github.com/immesys/bw2bc/rpc/comms"
+	"github.com/immesys/bw2bc/rpc/shared"
+	"github.com/immesys/bw2bc/rpc/useragent"
+	"github.com/immesys/bw2bc/xeth"
 
 	"github.com/robertkrimen/otto"
 )
