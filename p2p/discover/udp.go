@@ -25,14 +25,20 @@ import (
 	"net"
 	"time"
 
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/logger"
-	"github.com/ethereum/go-ethereum/logger/glog"
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/logger"
+	"github.com/immesys/bw2bc/logger/glog"
+	"github.com/immesys/bw2bc/p2p/nat"
+	"github.com/immesys/bw2bc/rlp"
 )
 
 const Version = 4
+
+// We don't want to inconvenience the ethereum people
+// by advertising tons of our peers to their network, when we
+// are on a different chain. The easiest way is to fail the 
+// MAC check right at the start of the packet decode.
+var Salt = []byte{"BOSSWAVE"}
 
 // Errors
 var (
@@ -443,7 +449,7 @@ func encodePacket(priv *ecdsa.PrivateKey, ptype byte, req interface{}) ([]byte, 
 	// add the hash to the front. Note: this doesn't protect the
 	// packet in any way. Our public key will be part of this hash in
 	// The future.
-	copy(packet, crypto.Sha3(packet[macSize:]))
+	copy(packet, crypto.Sha3(packet[macSize:], Salt))
 	return packet, nil
 }
 
@@ -492,7 +498,7 @@ func decodePacket(buf []byte) (packet, NodeID, []byte, error) {
 		return nil, NodeID{}, nil, errPacketTooSmall
 	}
 	hash, sig, sigdata := buf[:macSize], buf[macSize:headSize], buf[headSize:]
-	shouldhash := crypto.Sha3(buf[macSize:])
+	shouldhash := crypto.Sha3(buf[macSize:], Salt)
 	if !bytes.Equal(hash, shouldhash) {
 		return nil, NodeID{}, nil, errBadHash
 	}
