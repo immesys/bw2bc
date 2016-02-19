@@ -26,7 +26,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/ethereum/ethash"
+	"github.com/immesys/ethash"
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/core/state"
 	"github.com/immesys/bw2bc/core/types"

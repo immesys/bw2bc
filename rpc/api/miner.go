@@ -17,7 +17,7 @@
 package api
 
 import (
-	"github.com/ethereum/ethash"
+	"github.com/immesys/ethash"
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/eth"
 	"github.com/immesys/bw2bc/rpc/codec"

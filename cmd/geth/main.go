@@ -29,7 +29,7 @@ import (
 	"time"
 
 	"github.com/codegangsta/cli"
-	"github.com/ethereum/ethash"
+	"github.com/immesys/ethash"
 	"github.com/immesys/bw2bc/accounts"
 	"github.com/immesys/bw2bc/cmd/utils"
 	"github.com/immesys/bw2bc/common"

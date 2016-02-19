@@ -23,7 +23,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/ethash"
+	"github.com/immesys/ethash"
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/logger"
 	"github.com/immesys/bw2bc/logger/glog"

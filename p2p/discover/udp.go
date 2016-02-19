@@ -38,7 +38,7 @@ const Version = 4
 // by advertising tons of our peers to their network, when we
 // are on a different chain. The easiest way is to fail the 
 // MAC check right at the start of the packet decode.
-var Salt = []byte{"BOSSWAVE"}
+var Salt = []byte{0x42, 0x4f, 0x53, 0x53, 0x57, 0x41, 0x56, 0x45}
 
 // Errors
 var (

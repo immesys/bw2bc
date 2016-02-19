@@ -31,7 +31,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/ethereum/ethash"
+	"github.com/immesys/ethash"
 	"github.com/immesys/bw2bc/accounts"
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/common/compiler"

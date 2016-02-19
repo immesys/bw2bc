@@ -25,7 +25,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/ethash"
+	"github.com/immesys/ethash"
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/core/types"
 	"github.com/immesys/bw2bc/logger"
