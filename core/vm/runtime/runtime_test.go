@@ -20,9 +20,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/vm"
+	"github.com/immesys/bw2bc/accounts/abi"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/vm"
 )
 
 func TestDefaults(t *testing.T) {

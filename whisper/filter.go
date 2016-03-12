@@ -21,7 +21,7 @@ package whisper
 import (
 	"crypto/ecdsa"
 
-	"github.com/ethereum/go-ethereum/event/filter"
+	"github.com/immesys/bw2bc/event/filter"
 )
 
 // Filter is used to subscribe to specific types of whisper messages.

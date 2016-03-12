@@ -20,9 +20,9 @@ import (
 	"math"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/logger/glog"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/logger/glog"
+	"github.com/immesys/bw2bc/params"
 )
 
 // Global Debug flag indicating Debug VM (full logging)

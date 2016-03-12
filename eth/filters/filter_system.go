@@ -22,9 +22,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/event"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/event"
 )
 
 // FilterSystem manages filters that filter specific events such as
