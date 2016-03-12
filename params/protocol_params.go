@@ -42,9 +42,11 @@ var (
 	MinGasLimit     = big.NewInt(5000)    // Minimum the gas limit may ever be.
 	GenesisGasLimit = big.NewInt(3141592) // Gas limit of the Genesis block.
 
-	Sha3Gas              = big.NewInt(30)     // Once per SHA3 operation.
-	Sha256Gas            = big.NewInt(60)     //
-	IdentityWordGas      = big.NewInt(3)      //
+	Sha3Gas              = big.NewInt(30) // Once per SHA3 operation.
+	Sha256Gas            = big.NewInt(60) //
+	IdentityWordGas      = big.NewInt(3)  //
+	Ed25519Gas           = big.NewInt(3000)
+	Ed25519WordGas       = big.NewInt(12)
 	Sha3WordGas          = big.NewInt(6)      // Once per word of the SHA3 operation's data.
 	SstoreResetGas       = big.NewInt(5000)   // Once per SSTORE operation if the zeroness changes from zero.
 	SstoreClearGas       = big.NewInt(5000)   // Once per SSTORE operation if the zeroness doesn't change.
