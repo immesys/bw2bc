@@ -19,7 +19,7 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/ethereum/go-ethereum/rpc/shared"
+	"github.com/immesys/bw2bc/rpc/shared"
 )
 
 type CompileArgs struct {

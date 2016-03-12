@@ -3,7 +3,7 @@ package vm
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/params"
 )
 
 type jumpPtr struct {

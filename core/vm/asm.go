@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/immesys/bw2bc/common"
 )
 
 // Dissassemble dissassembles the byte code and returns the string

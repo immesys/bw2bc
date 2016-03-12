@@ -21,7 +21,7 @@ import (
 	"os"
 	"unicode"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/immesys/bw2bc/common"
 )
 
 // StdErrFormat formats a slice of StructLogs to human readable format

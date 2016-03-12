@@ -26,10 +26,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/logger"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/p2p/nat"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/logger"
+	"github.com/immesys/bw2bc/p2p/discover"
+	"github.com/immesys/bw2bc/p2p/nat"
 )
 
 func main() {

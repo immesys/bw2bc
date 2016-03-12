@@ -22,8 +22,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/params"
 )
 
 func init() {
