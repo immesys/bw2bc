@@ -541,6 +541,8 @@ func opCall(instr instruction, pc *uint64, env Environment, contract *Contract, 
 
 	address := common.BigToAddress(addr)
 
+	fmt.Printf("addr=%20s\nvalue=%20s\ninOffset=%20s\ninSize=%20s\nretOffset=%20s\nretSize=%20s\n",
+		addr.Text(16), value.Text(16), inOffset.Text(16), inSize.Text(16), retOffset.Text(16), retSize.Text(16))
 	// Get the arguments from the memory
 	args := memory.Get(inOffset.Int64(), inSize.Int64())
 
@@ -638,8 +640,10 @@ func makeLog(size int) instrFn {
 // make push instruction function
 func makePush(size uint64, bsize *big.Int) instrFn {
 	return func(instr instruction, pc *uint64, env Environment, contract *Contract, memory *Memory, stack *stack) {
+
 		byts := getData(contract.Code, new(big.Int).SetUint64(*pc+1), bsize)
 		stack.push(common.Bytes2Big(byts))
+		fmt.Printf("PUSHDAT: %030s\n", common.Bytes2Big(byts).Text(16))
 		*pc += size
 	}
 }
