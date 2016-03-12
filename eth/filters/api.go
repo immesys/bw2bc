@@ -25,12 +25,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/event"
+	"github.com/immesys/bw2bc/rpc"
 
 	"golang.org/x/net/context"
 )
@@ -361,7 +361,7 @@ func (args *NewFilterArgs) UnmarshalJSON(data []byte) error {
 		if len(raw) >= 2 && raw[0] == '0' && (raw[1] == 'x' || raw[1] == 'X') {
 			raw = raw[2:]
 		}
-		if len(raw) != 2 * common.HashLength {
+		if len(raw) != 2*common.HashLength {
 			return common.Hash{}, errors.New("invalid topic(s)")
 		}
 		if decAddr, err := hex.DecodeString(raw); err == nil {

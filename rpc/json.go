@@ -25,8 +25,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/logger"
-	"github.com/ethereum/go-ethereum/logger/glog"
+	"github.com/immesys/bw2bc/logger"
+	"github.com/immesys/bw2bc/logger/glog"
 )
 
 const (

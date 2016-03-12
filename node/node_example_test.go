@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc/node"
+	"github.com/immesys/bw2bc/p2p"
+	"github.com/immesys/bw2bc/p2p/discover"
+	"github.com/immesys/bw2bc/rpc"
 )
 
 // SampleService is a trivial network service that can be attached to a node for

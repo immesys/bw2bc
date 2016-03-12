@@ -21,10 +21,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/state"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/trie"
 	"golang.org/x/net/context"
 )
 

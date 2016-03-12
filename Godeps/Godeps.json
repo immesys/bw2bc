@@ -1,6 +1,6 @@
 {
-	"ImportPath": "github.com/ethereum/go-ethereum",
-	"GoVersion": "go1.5.2",
+	"ImportPath": "github.com/immesys/bw2bc",
+	"GoVersion": "go1.6",
 	"Packages": [
 		"./..."
 	],
@@ -23,9 +23,9 @@
 			"Rev": "5215b55f46b2b919f50a1df0eaa5886afe4e3b3d"
 		},
 		{
-			"ImportPath": "github.com/ethereum/ethash",
-			"Comment": "v23.1-245-g25b32de",
-			"Rev": "25b32de0c0271065c28c3719c2bfe86959d72f0c"
+			"ImportPath": "github.com/immesys/ethash",
+			"Comment": "from upstream 25b32de0c0271065c28c3719c2bfe86959d72f0c",
+			"Rev": "188bca5777618c43daa95fcc5003b9ebd98c0626"
 		},
 		{
 			"ImportPath": "github.com/fatih/color",

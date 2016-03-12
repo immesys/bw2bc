@@ -26,12 +26,12 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/internal/debug"
-	"github.com/ethereum/go-ethereum/logger"
-	"github.com/ethereum/go-ethereum/logger/glog"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc/event"
+	"github.com/immesys/bw2bc/internal/debug"
+	"github.com/immesys/bw2bc/logger"
+	"github.com/immesys/bw2bc/logger/glog"
+	"github.com/immesys/bw2bc/p2p"
+	"github.com/immesys/bw2bc/rpc"
 )
 
 var (

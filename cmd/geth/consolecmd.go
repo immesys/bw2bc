@@ -21,8 +21,8 @@ import (
 	"os/signal"
 
 	"github.com/codegangsta/cli"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/console"
+	"github.com/immesys/bw2bc/cmd/utils"
+	"github.com/immesys/bw2bc/console"
 )
 
 var (

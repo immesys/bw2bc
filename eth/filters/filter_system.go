@@ -23,9 +23,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/event"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/event"
 )
 
 // FilterType determines the type of filter and is used to put the filter in to

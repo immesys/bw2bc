@@ -21,11 +21,11 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/logger"
-	"github.com/ethereum/go-ethereum/logger/glog"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/logger"
+	"github.com/immesys/bw2bc/logger/glog"
+	"github.com/immesys/bw2bc/params"
 )
 
 // Config are the configuration options for the EVM

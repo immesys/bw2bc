@@ -21,8 +21,8 @@ import (
 	"strings"
 
 	"github.com/codegangsta/cli"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc/node"
+	"github.com/immesys/bw2bc/rpc"
 )
 
 // NewRemoteRPCClient returns a RPC client which connects to a running geth instance.

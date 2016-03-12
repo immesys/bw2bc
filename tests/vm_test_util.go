@@ -24,12 +24,12 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/logger/glog"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/state"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/logger/glog"
+	"github.com/immesys/bw2bc/params"
 )
 
 func RunVmTestWithReader(r io.Reader, skipTests []string) error {

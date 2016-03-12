@@ -22,8 +22,8 @@ import (
 	"io"
 
 	"github.com/codegangsta/cli"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/internal/debug"
+	"github.com/immesys/bw2bc/cmd/utils"
+	"github.com/immesys/bw2bc/internal/debug"
 )
 
 // AppHelpTemplate is the test template for the default, global app help topic.

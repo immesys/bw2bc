@@ -24,14 +24,14 @@ import (
 	"time"
 
 	"github.com/codegangsta/cli"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/console"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/logger/glog"
+	"github.com/immesys/bw2bc/cmd/utils"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/console"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/core/state"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/logger/glog"
 )
 
 var (

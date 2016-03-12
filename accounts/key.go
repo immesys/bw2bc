@@ -29,9 +29,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/secp256k1"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/crypto/secp256k1"
 	"github.com/pborman/uuid"
 )
 

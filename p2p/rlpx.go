@@ -34,12 +34,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/ecies"
-	"github.com/ethereum/go-ethereum/crypto/secp256k1"
-	"github.com/ethereum/go-ethereum/crypto/sha3"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/crypto/ecies"
+	"github.com/immesys/bw2bc/crypto/secp256k1"
+	"github.com/immesys/bw2bc/crypto/sha3"
+	"github.com/immesys/bw2bc/p2p/discover"
+	"github.com/immesys/bw2bc/rlp"
 )
 
 const (

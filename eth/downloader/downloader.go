@@ -28,14 +28,14 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/logger"
-	"github.com/ethereum/go-ethereum/logger/glog"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/event"
+	"github.com/immesys/bw2bc/logger"
+	"github.com/immesys/bw2bc/logger/glog"
+	"github.com/immesys/bw2bc/params"
+	"github.com/immesys/bw2bc/trie"
 	"github.com/rcrowley/go-metrics"
 )
 

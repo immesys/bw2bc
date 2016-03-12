@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/rlp"
 )
 
 type Log struct {

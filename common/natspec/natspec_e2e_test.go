@@ -28,17 +28,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/httpclient"
-	"github.com/ethereum/go-ethereum/common/registrar"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/node"
-	xe "github.com/ethereum/go-ethereum/xeth"
+	"github.com/immesys/bw2bc/accounts"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/httpclient"
+	"github.com/immesys/bw2bc/common/registrar"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/eth"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/event"
+	"github.com/immesys/bw2bc/node"
+	xe "github.com/immesys/bw2bc/xeth"
 )
 
 const (

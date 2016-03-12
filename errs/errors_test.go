@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/logger"
+	"github.com/immesys/bw2bc/logger"
 )
 
 func testErrors() *Errors {
