@@ -47,11 +47,11 @@ import (
 )
 
 const (
-	ClientIdentifier = "Geth"
-	Version          = "1.3.5"
-	VersionMajor     = 1
-	VersionMinor     = 3
-	VersionPatch     = 5
+	ClientIdentifier = "BW2BC"
+	Version          = "3.5.0"
+	VersionMajor     = 3
+	VersionMinor     = 5
+	VersionPatch     = 0
 )
 
 var (

@@ -34,7 +34,7 @@ const (
 )
 
 // Official short name of the protocol used during capability negotiation.
-var ProtocolName = "eth"
+var ProtocolName = "bweth"
 
 // Supported versions of the eth protocol (first is primary).
 var ProtocolVersions = []uint{eth63, eth62, eth61}
@@ -43,7 +43,7 @@ var ProtocolVersions = []uint{eth63, eth62, eth61}
 var ProtocolLengths = []uint64{17, 8, 9}
 
 const (
-	NetworkId          = 1
+	NetworkId          = 28589
 	ProtocolMaxMsgSize = 10 * 1024 * 1024 // Maximum cap on the size of a protocol message
 )
 
