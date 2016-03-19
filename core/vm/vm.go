@@ -32,6 +32,7 @@ import (
 // Vm is an EVM and implements VirtualMachine
 type Vm struct {
 	env Environment
+	sdb *ScratchDatabase
 }
 
 // New returns a new Vm
@@ -39,14 +40,28 @@ func New(env Environment) *Vm {
 	// init the jump table. Also prepares the homestead changes
 	jumpTable.init(env.BlockNumber())
 
-	return &Vm{env: env}
+	return &Vm{env: env, sdb: NewScratchDatabase()}
+}
+
+// Scratch returns the scratch database
+func (self *Vm) Scratch() *ScratchDatabase {
+	return self.sdb
 }
 
 // Run loops and evaluates the contract's code with the given input data
 func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
 
-	fmt.Println("RUN CALLEDs\n")
+	glog.V(logger.Info).Infof("RUN CALLED %d\n", self.env.Depth())
+	fmt.Printf("dtag was %v\n", self.sdb.LookupSlice([]byte{1}))
+	// Clear the scratch database after exiting every stack of contracts
+	defer func() {
+		if self.env.Depth() == 0 {
+			self.sdb.Clear()
+		}
+	}()
+
 	self.env.SetDepth(self.env.Depth() + 1)
+	self.sdb.InsertSlice([]byte{1}, self.env.Depth())
 	defer self.env.SetDepth(self.env.Depth() - 1)
 
 	if contract.CodeAddr != nil {
@@ -173,8 +188,8 @@ func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
 		// Add a log message
 		self.log(pc, op, contract.Gas, cost, mem, stack, contract, nil)
 
-		fmt.Printf("vm: %+v %+v\n", pc, op)
-		stack.Print()
+		//fmt.Printf("vm: %+v %+v\n", pc, op)
+		//stack.Print()
 
 		if opPtr := jumpTable[op]; opPtr.valid {
 			if opPtr.fn != nil {
@@ -361,7 +376,7 @@ func calculateGasAndSize(env Environment, contract *Contract, caller ContractRef
 func (self *Vm) RunPrecompiled(p *PrecompiledAccount, input []byte, contract *Contract) (ret []byte, err error) {
 	gas := p.Gas(len(input))
 	if contract.UseGas(gas) {
-		ret = p.Call(input)
+		ret = p.Call(input, self)
 
 		return ret, nil
 	} else {
