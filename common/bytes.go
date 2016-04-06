@@ -92,7 +92,6 @@ func BytesToNumber(b []byte) uint64 {
 	if err != nil {
 		fmt.Println("BytesToNumber failed:", err)
 	}
-
 	return number
 }
 

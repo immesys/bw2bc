@@ -30,7 +30,6 @@ import (
 	"strconv"
 
 	"github.com/codegangsta/cli"
-	"github.com/immesys/ethash"
 	"github.com/immesys/bw2bc/accounts"
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/core"
@@ -50,6 +49,7 @@ import (
 	"github.com/immesys/bw2bc/rpc/shared"
 	"github.com/immesys/bw2bc/rpc/useragent"
 	"github.com/immesys/bw2bc/xeth"
+	"github.com/immesys/ethash"
 )
 
 func init() {
@@ -183,7 +183,7 @@ var (
 	GasPriceFlag = cli.StringFlag{
 		Name:  "gasprice",
 		Usage: "Minimal gas price to accept for mining a transactions",
-		Value: new(big.Int).Mul(big.NewInt(20), common.Shannon).String(),
+		Value: new(big.Int).Mul(big.NewInt(1), common.Shannon).String(),
 	}
 	ExtraDataFlag = cli.StringFlag{
 		Name:  "extradata",

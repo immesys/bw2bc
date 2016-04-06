@@ -7,10 +7,11 @@ import (
 	"math/big"
 	"time"
 
+	"github.com/golang/glog"
 	bwcrypto "github.com/immesys/bw2/crypto"
 	"github.com/immesys/bw2/objects"
-	bwutil "github.com/immesys/bw2/util"
 	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/logger"
 )
 
 // The gas used by any bosswave function
@@ -19,17 +20,18 @@ const (
 )
 
 func getUInt64Param(args []byte, paramnum int) uint64 {
-	return common.Bytes2Big(args[32*paramnum : (32*paramnum + 1)]).Uint64()
+	return common.Bytes2Big(args[32*paramnum : 32*(paramnum+1)]).Uint64()
 }
 func getIntParam(args []byte, paramnum int) int {
-	return int(common.Bytes2Big(args[32*paramnum : (32*paramnum + 1)]).Uint64())
+	return int(common.Bytes2Big(args[32*paramnum : 32*(paramnum+1)]).Uint64())
 }
 func getBytes32Param(args []byte, paramnum int) []byte {
-	return args[32*paramnum : (32*paramnum + 1)]
+	return args[32*paramnum : 32*(paramnum+1)]
 }
 
 // This is a python script that can be used to work out the
 // sha3 sig for a function
+// note this actually assumes sha3 == keccak in python
 // import sha3; f = lambda x : sha3.sha3_256(x).hexdigest()[:8]
 
 // VerifyEd25519Packed(bytes object)
@@ -46,13 +48,9 @@ func bwVerifyEd25519Packed(args []byte, vm *Vm) []byte {
 	bodyEnd := len(payload) - 64
 	sig := payload[bodyEnd:]
 	body := payload[:bodyEnd]
-	fmt.Printf("Doing VFB:\nvk =%s\nsig=%s\nbdy=%s\n",
-		hex.EncodeToString(vk), hex.EncodeToString(sig), hex.EncodeToString(body))
 	if bwcrypto.VerifyBlob(vk, sig, body) {
-		fmt.Println("BWVFBLOB WAS OK\n")
 		return common.LeftPadBytes([]byte{1}, 32)
 	} else {
-		fmt.Println("BWVFBLOB WAS BAD\n")
 		return common.LeftPadBytes([]byte{0}, 32)
 	}
 }
@@ -99,13 +97,13 @@ func bwUnpackDOT(args []byte, vm *Vm) []byte {
 	dot := ro.(*objects.DOT)
 	// sigok / structok
 	if dot.SigValid() {
-		res[0*32] = 1
+		res[0*32+31] = 1
 	} else {
 		return res
 	}
 	res[1*32] = byte(len(dot.GetRevokers()))
 	if ronum == objects.ROPermissionDOT {
-		res[2*32] = 1
+		res[2*32+31] = 1
 	}
 	expiry := dot.GetExpiry()
 	if expiry != nil {
@@ -115,7 +113,7 @@ func bwUnpackDOT(args []byte, vm *Vm) []byte {
 	copy(res[5*32:6*32], dot.GetReceiverVK())
 	copy(res[6*32:7*32], dot.GetHash())
 	// We can now refer to the DOT by its hash
-	vm.Scratch().InsertSlice(dot.GetHash(), dot)
+	vm.Env().Scratch().InsertSlice(dot.GetHash(), dot)
 	return res
 }
 
@@ -127,7 +125,7 @@ var SigGetDOTDelegatedRevoker = []byte{0xe0, 0x03, 0x1b, 0x1d}
 func bwGetDOTDelegatedRevoker(args []byte, vm *Vm) []byte {
 	dothash := getBytes32Param(args, 0)
 	indx := getIntParam(args, 1)
-	dot := vm.Scratch().LookupSlice(dothash).(*objects.DOT)
+	dot := vm.Env().Scratch().LookupSlice(dothash).(*objects.DOT)
 	return dot.GetRevokers()[indx]
 }
 
@@ -147,17 +145,17 @@ func bwUnpackEntity(args []byte, vm *Vm) []byte {
 	e := ro.(*objects.Entity)
 	// sigok / structok
 	if e.SigValid() {
-		res[0*32] = 1
+		res[0*32+31] = 1
 	} else {
 		return res
 	}
-	res[1*32] = byte(len(e.GetRevokers()))
+	res[1*32+31] = byte(len(e.GetRevokers()))
 	expiry := e.GetExpiry()
 	if expiry != nil {
 		copy(res[2*32:3*32], common.BigToBytes(big.NewInt(expiry.Unix()), 256))
 	}
 	copy(res[3*32:4*32], e.GetVK())
-	vm.Scratch().InsertSlice(e.GetVK(), e)
+	vm.Env().Scratch().InsertSlice(e.GetVK(), e)
 	return res
 }
 
@@ -170,7 +168,7 @@ var SigGetEntityDelegatedRevoker = []byte{0x3a, 0xfe, 0x3a, 0x8a}
 func bwGetEntityDelegatedRevoker(args []byte, vm *Vm) []byte {
 	vk := getBytes32Param(args, 0)
 	indx := getIntParam(args, 1)
-	e := vm.Scratch().LookupSlice(vk).(*objects.Entity)
+	e := vm.Env().Scratch().LookupSlice(vk).(*objects.Entity)
 	return e.GetRevokers()[indx]
 }
 
@@ -190,13 +188,13 @@ func bwUnpackAccessDChain(args []byte, vm *Vm) []byte {
 		return rv
 	}
 	dc := dci.(*objects.DChain)
-	rv[0*32] = 1
-	rv[1*32] = byte(len(blob) / 32)
+	rv[0*32+31] = 1
+	rv[1*32+31] = byte(len(blob) / 32)
 	chainhash := dc.GetChainHash()
 	copy(rv[2*32:3*32], chainhash)
 	// We might be augmenting chains, don't overwrite it if it is there
-	if vm.Scratch().LookupSlice(chainhash) == nil {
-		vm.Scratch().InsertSlice(chainhash, dc)
+	if vm.Env().Scratch().LookupSlice(chainhash) == nil {
+		vm.Env().Scratch().InsertSlice(chainhash, dc)
 	}
 	return rv
 }
@@ -209,7 +207,7 @@ var SigGetDChainDOTHash = []byte{0xda, 0x3c, 0xd6, 0x74}
 func bwGetDChainDOTHash(args []byte, vm *Vm) []byte {
 	chainhash := getBytes32Param(args, 0)
 	indx := getIntParam(args, 1)
-	dc := vm.Scratch().LookupSlice(chainhash).(*objects.DChain)
+	dc := vm.Env().Scratch().LookupSlice(chainhash).(*objects.DChain)
 	return dc.GetDotHash(indx)
 }
 
@@ -237,7 +235,7 @@ func bwUnpackRevocation(args []byte, vm *Vm) []byte {
 	rvk := ro.(*objects.Revocation)
 	// sigok / structok
 	if rvk.SigValid() {
-		res[0*32] = 1
+		res[0*32+31] = 1
 	} else {
 		return res
 	}
@@ -247,7 +245,7 @@ func bwUnpackRevocation(args []byte, vm *Vm) []byte {
 	copy(key, rvk.GetTarget())
 	key[0] = ^key[0]
 	//Check if a slice of revocations for the target exists
-	eslice, _ := vm.Scratch().LookupSlice(key).([]*objects.Revocation)
+	eslice, _ := vm.Env().Scratch().LookupSlice(key).([]*objects.Revocation)
 	if eslice == nil {
 		eslice = make([]*objects.Revocation, 0, 1)
 	}
@@ -262,12 +260,13 @@ func bwUnpackRevocation(args []byte, vm *Vm) []byte {
 	if !found {
 		eslice = append(eslice, rvk)
 	}
-	vm.Scratch().InsertSlice(key, eslice)
+	vm.Env().Scratch().InsertSlice(key, eslice)
 	return res
 }
 
 // ADChainGrants(bytes32 chainhash, bytes8 adps, bytes32 mvk, bytes urisuffix)
 // sig: ADChainGrants(bytes32,bytes8,bytes32,bytes) (uint16)
+// If mvk is zeroes or urisuffix is empty, they will not be checked.
 // rv = 200 if chain is valid, and all dots are valid and unexpired and
 //          it grants a superset of the passed adps, mvk and suffix
 //          and all the entities are known to be unexpired
@@ -277,21 +276,17 @@ var SigADChainGrants = []byte{0x8c, 0x75, 0x65, 0xdc}
 
 func wrappedBWChainGrants(dc *objects.DChain, adpspacked []byte, mvk []byte, suffix []byte, vm *Vm) int {
 	sSuffix := string(suffix)
-	valid, _, _, _, _ := bwutil.AnalyzeSuffix(sSuffix)
-	if !valid {
-		return bwutil.BWStatusBadURI
-	}
 	ADPS := objects.DecodeADPS(adpspacked)
 	now := time.Unix(vm.Env().Time().Int64(), 0)
 	getDOT := func(k []byte) *objects.DOT {
-		rv, ok := vm.Scratch().LookupSlice(k).(*objects.DOT)
+		rv, ok := vm.Env().Scratch().LookupSlice(k).(*objects.DOT)
 		if !ok {
 			return nil
 		}
 		return rv
 	}
 	getEntity := func(k []byte) *objects.Entity {
-		rv, ok := vm.Scratch().LookupSlice(k).(*objects.Entity)
+		rv, ok := vm.Env().Scratch().LookupSlice(k).(*objects.Entity)
 		if !ok {
 			return nil
 		}
@@ -300,13 +295,19 @@ func wrappedBWChainGrants(dc *objects.DChain, adpspacked []byte, mvk []byte, suf
 	//We actually only store one revocation. We know its valid
 	//so there is no point having more revocations
 	getRevocation := func(k []byte) []*objects.Revocation {
+		//fmt.Println("ATAGSUB 1")
 		nk := make([]byte, len(k))
+		//fmt.Println("ATAGSUB 2:", len(k))
 		copy(nk, k)
+		//fmt.Println("ATAGSUB 3")
 		nk[0] = ^nk[0]
-		r, ok := vm.Scratch().LookupSlice(nk).(*objects.Revocation)
+		//fmt.Println("ATAGSUB 4")
+		r, ok := vm.Env().Scratch().LookupSlice(nk).(*objects.Revocation)
+		//fmt.Println("ATAGSUB 5:", r, ok)
 		if !ok {
 			return []*objects.Revocation{}
 		}
+		//fmt.Println("ATAGSUB 6")
 		return []*objects.Revocation{r}
 	}
 	// Down the rabbit hole
@@ -320,7 +321,7 @@ func bwADChainGrants(args []byte, vm *Vm) []byte {
 	mvk := getBytes32Param(args, 2)
 	suffix := getBytesParam(args, 3)
 
-	dc := vm.Scratch().LookupSlice(chainhash).(*objects.DChain)
+	dc := vm.Env().Scratch().LookupSlice(chainhash).(*objects.DChain)
 	// Wow, such abstraction. This is like pages of code lol:
 	result := wrappedBWChainGrants(dc, adpspacked, mvk, suffix, vm)
 	return common.BigToBytes(big.NewInt(int64(result)), 256)
@@ -342,7 +343,7 @@ func bwHelperDOTGetRevokableHashes(dot *objects.DOT) [][]byte {
 
 func bwGetDOTNumRevokableHashes(args []byte, vm *Vm) []byte {
 	dhash := getBytes32Param(args, 0)
-	dot := vm.Scratch().LookupSlice(dhash).(*objects.DOT)
+	dot := vm.Env().Scratch().LookupSlice(dhash).(*objects.DOT)
 	nrh := len(bwHelperDOTGetRevokableHashes(dot))
 	return common.BigToBytes(big.NewInt(int64(nrh)), 256)
 }
@@ -354,7 +355,7 @@ var SigGetDOTRevokableHash = []byte{0x24, 0xf6, 0x18, 0xb6}
 func bwGetDOTRevokableHash(args []byte, vm *Vm) []byte {
 	dhash := getBytes32Param(args, 0)
 	indx := getIntParam(args, 1)
-	dot := vm.Scratch().LookupSlice(dhash).(*objects.DOT)
+	dot := vm.Env().Scratch().LookupSlice(dhash).(*objects.DOT)
 	return bwHelperDOTGetRevokableHashes(dot)[indx]
 }
 
@@ -381,8 +382,8 @@ func bwHelperAugmentDC(dc *objects.DChain, s *ScratchDatabase) {
 }
 func bwGetDChainNumRevokableHashes(args []byte, vm *Vm) []byte {
 	chainhash := getBytes32Param(args, 0)
-	dc := vm.Scratch().LookupSlice(chainhash).(*objects.DChain)
-	bwHelperAugmentDC(dc, vm.Scratch())
+	dc := vm.Env().Scratch().LookupSlice(chainhash).(*objects.DChain)
+	bwHelperAugmentDC(dc, vm.Env().Scratch())
 	return common.BigToBytes(big.NewInt(int64(len(bwHelperDChainGetRevokableHashes(dc)))), 256)
 }
 
@@ -393,8 +394,8 @@ var SigGetDChainRevokableHash = []byte{0xee, 0xf9, 0x36, 0x11}
 func bwGetDChainRevokableHash(args []byte, vm *Vm) []byte {
 	chainhash := getBytes32Param(args, 0)
 	indx := getIntParam(args, 1)
-	dc := vm.Scratch().LookupSlice(chainhash).(*objects.DChain)
-	bwHelperAugmentDC(dc, vm.Scratch())
+	dc := vm.Env().Scratch().LookupSlice(chainhash).(*objects.DChain)
+	bwHelperAugmentDC(dc, vm.Env().Scratch())
 	return bwHelperDChainGetRevokableHashes(dc)[indx]
 }
 
@@ -407,11 +408,13 @@ func getBytesParam(in []byte, paramnumber int) []byte {
 func bosswave(in []byte, vm *Vm) (rv []byte) {
 	defer func() {
 		if r := recover(); r != nil {
+			fmt.Println("BW PC FAULT: %+v", r)
+			glog.V(logger.Info).Infof("\u2622 BW PC FAULT: %+v", r)
 			rv = nil
 			return
 		}
 	}()
-	fmt.Printf("GOT: %d bytes: %v\n", len(in), hex.EncodeToString(in))
+	glog.V(logger.Info).Infof("\u21C6 BW PC GOT %d : %v\n", len(in), hex.EncodeToString(in))
 	if len(in) < 4 {
 		return nil
 	}

@@ -62,6 +62,9 @@ type Environment interface {
 	// Type of the VM
 	VmType() Type
 
+	// Get Scratch database
+	Scratch() *ScratchDatabase
+
 	// Current calling depth
 	Depth() int
 	SetDepth(i int)

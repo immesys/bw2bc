@@ -27,4 +27,17 @@ func NewDefaultGenesisReader() (io.Reader, error) {
 	return gzip.NewReader(base64.NewDecoder(base64.StdEncoding, strings.NewReader(defaultGenesisBlock)))
 }
 
-const defaultGenesisBlock = "H4sICLCk41YAA2dlbmVzaXMuanNvbgCr5lKAAqW8/LzkVCUrBSWDCmNDE0NTSyMzU2NTC0tzSyUdhKqSzNzU4pLE3AKISgNkuYLEotS8Eo/E4gyoJIUA2ezUipKiRJfEkkQs9qYnFvtk5maWQKQsMDWnZKalZSaX5pRUQpSYYKjIzazIoIm7k/Mz85ISi1NJMxnZhMScnPxkoPZquFAtVy0XFwBNBmYTugEAAA=="
+// {
+//     "nonce": "0xb055deadbeefdeadbeef",
+//     "timestamp": "0x0",
+//     "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+//     "extraData": "0x0",
+//     "gasLimit": "0x8000000",
+//     "difficulty": "200000",
+//     "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+//     "coinbase": "0x3333333333333333333333333333333333333333",
+//     "alloc": {
+//     }
+// }
+
+const defaultGenesisBlock = "H4sICKu9+VYAA2Zvb2dlbi5qc29uAKvm4lTKy89LTlWyUlAyqEgyMDVNSU1MSUpNTYPRSjpANSWZuanFJYm5BRB1BmDBgsSi1LwSj8TiDKgohQBsaGpFSVGiS2JJIrJN6YnFPpm5mSUQMQsk5SmZaWmZyaU5JZUgOSOERG5mRQZ1XZacn5mXlFgMDSpjIgFYa2JOTn4yUF81F2ctVy0XAF+q+gd2AQAA"

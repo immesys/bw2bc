@@ -71,7 +71,7 @@ var (
 	defaultBootNodes = []*discover.Node{
 		// BOSSWAVE boot nodes
 		// Castle
-		discover.MustParseNode("enode://a8bd5d9ff226771c2a15419245de97b58804237f867c6575c36f9b0140c1f5fb379d8475d074d2aa5e96fcd035a497293488336919c184df319d30135433ad5a@128.32.37.201:30303"),
+		discover.MustParseNode("enode://b2304f29230f9ceddb5e64e24ce5681f869d331a1dc41328eb4a7c26fedc92e24f34b87e775d7ce1793df376d63ae47ca00792ae7ecc01080aeebec14548e93b@128.32.37.201:30303"),
 		// Asylum
 		discover.MustParseNode("enode://686f709677c4d0f2cd58cf651ea8ce1375bef22dcf29065994e34c1c4fd6f86691698321460f43059cc6cea536cd66ef534208869cd27765c4455f577a42a107@128.32.37.241:30303"),
 		// BW2.io
@@ -283,7 +283,7 @@ func New(config *Config) (*Ethereum, error) {
 	chainDb, err := newdb(filepath.Join(config.DataDir, "chaindata"))
 	if err != nil {
 		if errno, ok := err.(syscall.Errno); ok && datadirInUseErrnos[uint(errno)] {
-			err = fmt.Errorf("%v (check if another instance of geth is already running with the same data directory '%s')", err, config.DataDir)
+			err = fmt.Errorf("%v (check if another instance of bw2bc is already running with the same data directory '%s')", err, config.DataDir)
 		}
 		return nil, fmt.Errorf("blockchain db err: %v", err)
 	}
@@ -300,7 +300,7 @@ func New(config *Config) (*Ethereum, error) {
 	dappDb, err := newdb(filepath.Join(config.DataDir, "dapp"))
 	if err != nil {
 		if errno, ok := err.(syscall.Errno); ok && datadirInUseErrnos[uint(errno)] {
-			err = fmt.Errorf("%v (check if another instance of geth is already running with the same data directory '%s')", err, config.DataDir)
+			err = fmt.Errorf("%v (check if another instance of bw2bc is already running with the same data directory '%s')", err, config.DataDir)
 		}
 		return nil, fmt.Errorf("dapp db err: %v", err)
 	}

@@ -32,7 +32,6 @@ import (
 // Vm is an EVM and implements VirtualMachine
 type Vm struct {
 	env Environment
-	sdb *ScratchDatabase
 }
 
 // New returns a new Vm
@@ -40,28 +39,19 @@ func New(env Environment) *Vm {
 	// init the jump table. Also prepares the homestead changes
 	jumpTable.init(env.BlockNumber())
 
-	return &Vm{env: env, sdb: NewScratchDatabase()}
-}
-
-// Scratch returns the scratch database
-func (self *Vm) Scratch() *ScratchDatabase {
-	return self.sdb
+	return &Vm{env: env}
 }
 
 // Run loops and evaluates the contract's code with the given input data
 func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
-
-	glog.V(logger.Info).Infof("RUN CALLED %d\n", self.env.Depth())
-	fmt.Printf("dtag was %v\n", self.sdb.LookupSlice([]byte{1}))
 	// Clear the scratch database after exiting every stack of contracts
 	defer func() {
 		if self.env.Depth() == 0 {
-			self.sdb.Clear()
+			self.env.Scratch().Clear()
 		}
 	}()
 
 	self.env.SetDepth(self.env.Depth() + 1)
-	self.sdb.InsertSlice([]byte{1}, self.env.Depth())
 	defer self.env.SetDepth(self.env.Depth() - 1)
 
 	if contract.CodeAddr != nil {
