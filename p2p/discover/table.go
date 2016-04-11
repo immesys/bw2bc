@@ -240,7 +240,6 @@ func (tab *Table) Lookup(targetID NodeID) []*Node {
 						fails := tab.db.findFails(n.ID) + 1
 						tab.db.updateFindFails(n.ID, fails)
 						glog.V(logger.Detail).Infof("Bumping failures for %x: %d", n.ID[:8], fails)
-						glog.V(logger.Detail).Infof("Bumpingfail err %x: ", n.ID[:8], err.Error())
 
 						if fails >= maxFindnodeFailures {
 							glog.V(logger.Detail).Infof("Evacuating node %x: %d findnode failures", n.ID[:8], fails)
@@ -440,7 +439,6 @@ func (tab *Table) bond(pinged bool, id NodeID, addr *net.UDPAddr, tcpPort uint16
 		if result == nil {
 			node = w.n
 		}
-		glog.V(logger.Detail).Infof("Bonding %x: result %s", id[:8], result)
 	}
 	if node != nil {
 		// Add the node to the table even if the bonding ping/pong

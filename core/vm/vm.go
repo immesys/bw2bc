@@ -17,7 +17,6 @@
 package vm
 
 import (
-	"encoding/hex"
 	"fmt"
 	"math/big"
 	"time"
@@ -139,13 +138,13 @@ func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
 		}
 	}()
 
-	//if glog.V(logger.Debug) {
-	glog.Infof("running byte VM %x\n", codehash[:4])
-	tstart := time.Now()
-	defer func() {
-		glog.Infof("byte VM %x done. time: %v instrc: %v\n", codehash[:4], time.Since(tstart), instrCount)
-	}()
-	//}
+	if glog.V(logger.Debug) {
+		glog.Infof("running byte VM %x\n", codehash[:4])
+		tstart := time.Now()
+		defer func() {
+			glog.Infof("byte VM %x done. time: %v instrc: %v\n", codehash[:4], time.Since(tstart), instrCount)
+		}()
+	}
 
 	for ; ; instrCount++ {
 		/*
@@ -178,9 +177,6 @@ func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
 		// Add a log message
 		self.log(pc, op, contract.Gas, cost, mem, stack, contract, nil)
 
-		//fmt.Printf("vm: %+v %+v\n", pc, op)
-		//stack.Print()
-
 		if opPtr := jumpTable[op]; opPtr.valid {
 			if opPtr.fn != nil {
 				opPtr.fn(instruction{}, &pc, self.env, contract, mem, stack)
@@ -207,7 +203,6 @@ func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
 				case RETURN:
 					offset, size := stack.pop(), stack.pop()
 					ret := mem.GetPtr(offset.Int64(), size.Int64())
-					fmt.Errorf("Ret offset=%v size=%v ret=%20s", offset, size, hex.Dump(ret))
 					return ret, nil
 
 				case SUICIDE:

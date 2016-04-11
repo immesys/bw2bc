@@ -295,19 +295,13 @@ func wrappedBWChainGrants(dc *objects.DChain, adpspacked []byte, mvk []byte, suf
 	//We actually only store one revocation. We know its valid
 	//so there is no point having more revocations
 	getRevocation := func(k []byte) []*objects.Revocation {
-		//fmt.Println("ATAGSUB 1")
 		nk := make([]byte, len(k))
-		//fmt.Println("ATAGSUB 2:", len(k))
 		copy(nk, k)
-		//fmt.Println("ATAGSUB 3")
 		nk[0] = ^nk[0]
-		//fmt.Println("ATAGSUB 4")
 		r, ok := vm.Env().Scratch().LookupSlice(nk).(*objects.Revocation)
-		//fmt.Println("ATAGSUB 5:", r, ok)
 		if !ok {
 			return []*objects.Revocation{}
 		}
-		//fmt.Println("ATAGSUB 6")
 		return []*objects.Revocation{r}
 	}
 	// Down the rabbit hole
@@ -409,7 +403,7 @@ func bosswave(in []byte, vm *Vm) (rv []byte) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("BW PC FAULT: %+v", r)
-			glog.V(logger.Info).Infof("\u2622 BW PC FAULT: %+v", r)
+			glog.Errorf("\u2622 BW PC FAULT: %+v", r)
 			rv = nil
 			return
 		}
@@ -458,7 +452,7 @@ func bosswave(in []byte, vm *Vm) (rv []byte) {
 		return bwUnpackRevocation(args, vm)
 
 	default:
-		fmt.Println("Hit default sig comparison: sig:", sig)
+		glog.Infof("Hit default sig comparison: sig:", sig)
 		return nil
 	}
 }

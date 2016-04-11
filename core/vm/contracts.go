@@ -17,8 +17,6 @@
 package vm
 
 import (
-	"encoding/hex"
-	"fmt"
 	"math/big"
 
 	"github.com/immesys/bw2bc/common"
@@ -77,11 +75,6 @@ func PrecompiledContracts() map[string]*PrecompiledAccount {
 			return big.NewInt(BWGas)
 		}, bosswave},
 	}
-}
-
-func bwtest(in []byte) []byte {
-	fmt.Printf("GOT: %d bytes: %v\n", len(in), hex.EncodeToString(in))
-	return common.LeftPadBytes([]byte{1, 3, 3, 7}, 32)
 }
 
 func sha256Func(in []byte, vm *Vm) []byte {
