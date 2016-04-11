@@ -879,6 +879,10 @@ func (self *XEth) Frontend() Frontend {
 	return self.frontend
 }
 
+func (self *XEth) SyncProgress() (start, cur, highest uint64) {
+	return self.backend.Downloader().Progress()
+}
+
 func (self *XEth) SignTransaction(fromStr, toStr, nonceStr, valueStr, gasStr, gasPriceStr, codeStr string) (*types.Transaction, error) {
 	if len(toStr) > 0 && toStr != "0x" && !isAddress(toStr) {
 		return nil, errors.New("Invalid address")

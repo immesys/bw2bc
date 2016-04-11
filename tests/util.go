@@ -151,6 +151,10 @@ func NewEnv(state *state.StateDB) *Env {
 	}
 }
 
+func (self *Env) Scratch() *vm.ScratchDatabase {
+	return nil
+}
+
 func (self *Env) StructLogs() []vm.StructLog {
 	return self.logs
 }

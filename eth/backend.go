@@ -285,7 +285,7 @@ func New(config *Config) (*Ethereum, error) {
 	chainDb, err := newdb(filepath.Join(config.DataDir, "chaindata"))
 	if err != nil {
 		if errno, ok := err.(syscall.Errno); ok && datadirInUseErrnos[uint(errno)] {
-			err = fmt.Errorf("%v (check if another instance of geth is already running with the same data directory '%s')", err, config.DataDir)
+			err = fmt.Errorf("%v (check if another instance of bw2bc is already running with the same data directory '%s')", err, config.DataDir)
 		}
 		return nil, fmt.Errorf("blockchain db err: %v", err)
 	}
@@ -302,7 +302,7 @@ func New(config *Config) (*Ethereum, error) {
 	dappDb, err := newdb(filepath.Join(config.DataDir, "dapp"))
 	if err != nil {
 		if errno, ok := err.(syscall.Errno); ok && datadirInUseErrnos[uint(errno)] {
-			err = fmt.Errorf("%v (check if another instance of geth is already running with the same data directory '%s')", err, config.DataDir)
+			err = fmt.Errorf("%v (check if another instance of bw2bc is already running with the same data directory '%s')", err, config.DataDir)
 		}
 		return nil, fmt.Errorf("dapp db err: %v", err)
 	}

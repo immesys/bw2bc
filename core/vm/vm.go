@@ -17,7 +17,6 @@
 package vm
 
 import (
-	"encoding/hex"
 	"fmt"
 	"math/big"
 	"time"
@@ -44,6 +43,13 @@ func New(env Environment) *Vm {
 
 // Run loops and evaluates the contract's code with the given input data
 func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
+	// Clear the scratch database after exiting every stack of contracts
+	defer func() {
+		if self.env.Depth() == 0 {
+			self.env.Scratch().Clear()
+		}
+	}()
+
 	self.env.SetDepth(self.env.Depth() + 1)
 	defer self.env.SetDepth(self.env.Depth() - 1)
 
@@ -170,6 +176,7 @@ func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
 		mem.Resize(newMemSize.Uint64())
 		// Add a log message
 		self.log(pc, op, contract.Gas, cost, mem, stack, contract, nil)
+
 		if opPtr := jumpTable[op]; opPtr.valid {
 			if opPtr.fn != nil {
 				opPtr.fn(instruction{}, &pc, self.env, contract, mem, stack)
@@ -196,8 +203,8 @@ func (self *Vm) Run(contract *Contract, input []byte) (ret []byte, err error) {
 				case RETURN:
 					offset, size := stack.pop(), stack.pop()
 					ret := mem.GetPtr(offset.Int64(), size.Int64())
-
 					return ret, nil
+
 				case SUICIDE:
 					opSuicide(instruction{}, nil, self.env, contract, mem, stack)
 
@@ -354,7 +361,7 @@ func calculateGasAndSize(env Environment, contract *Contract, caller ContractRef
 func (self *Vm) RunPrecompiled(p *PrecompiledAccount, input []byte, contract *Contract) (ret []byte, err error) {
 	gas := p.Gas(len(input))
 	if contract.UseGas(gas) {
-		ret = p.Call(input)
+		ret = p.Call(input, self)
 
 		return ret, nil
 	} else {

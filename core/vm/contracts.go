@@ -19,8 +19,6 @@ package vm
 import (
 	"math/big"
 
-	bwcrypto "github.com/immesys/bw2/crypto"
-	"github.com/immesys/bw2/objects"
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/crypto"
 	"github.com/immesys/bw2bc/logger"
@@ -31,12 +29,12 @@ import (
 // PrecompiledAccount represents a native ethereum contract
 type PrecompiledAccount struct {
 	Gas func(l int) *big.Int
-	fn  func(in []byte) []byte
+	fn  func(in []byte, vm *Vm) []byte
 }
 
 // Call calls the native function
-func (self PrecompiledAccount) Call(in []byte) []byte {
-	return self.fn(in)
+func (self PrecompiledAccount) Call(in []byte, vm *Vm) []byte {
+	return self.fn(in, vm)
 }
 
 // Precompiled contains the default set of ethereum contracts
@@ -71,20 +69,25 @@ func PrecompiledContracts() map[string]*PrecompiledAccount {
 
 			return n.Add(n, params.IdentityGas)
 		}, memCpy},
+
+		// BWFunctions
+		string(common.LeftPadBytes([]byte{0x2, 0x85, 0x89}, 20)): &PrecompiledAccount{func(l int) *big.Int {
+			return big.NewInt(BWGas)
+		}, bosswave},
 	}
 }
 
-func sha256Func(in []byte) []byte {
+func sha256Func(in []byte, vm *Vm) []byte {
 	return crypto.Sha256(in)
 }
 
-func ripemd160Func(in []byte) []byte {
+func ripemd160Func(in []byte, vm *Vm) []byte {
 	return common.LeftPadBytes(crypto.Ripemd160(in), 32)
 }
 
 const ecRecoverInputLength = 128
 
-func ecrecoverFunc(in []byte) []byte {
+func ecrecoverFunc(in []byte, vm *Vm) []byte {
 	in = common.RightPadBytes(in, 128)
 	// "in" is (hash, v, r, s), each 32 bytes
 	// but for ecrecover we want (r, s, v)
@@ -116,6 +119,6 @@ func ecrecoverFunc(in []byte) []byte {
 	return common.LeftPadBytes(crypto.Sha3(pubKey[1:])[12:], 32)
 }
 
-func memCpy(in []byte) []byte {
+func memCpy(in []byte, vm *Vm) []byte {
 	return in
 }

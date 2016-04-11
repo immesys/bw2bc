@@ -549,7 +549,6 @@ func opCall(instr instruction, pc *uint64, env Environment, contract *Contract, 
 	}
 
 	ret, err := env.Call(contract, address, args, gas, contract.Price, value)
-
 	if err != nil {
 		stack.push(new(big.Int))
 
@@ -638,6 +637,7 @@ func makeLog(size int) instrFn {
 // make push instruction function
 func makePush(size uint64, bsize *big.Int) instrFn {
 	return func(instr instruction, pc *uint64, env Environment, contract *Contract, memory *Memory, stack *stack) {
+
 		byts := getData(contract.Code, new(big.Int).SetUint64(*pc+1), bsize)
 		stack.push(common.Bytes2Big(byts))
 		*pc += size

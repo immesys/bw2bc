@@ -25,9 +25,5 @@ var (
 )
 
 func IsHomestead(blockNumber *big.Int) bool {
-	// for unit tests TODO: flip to true after homestead is live
-	if blockNumber == nil {
-		return false
-	}
-	return blockNumber.Cmp(HomesteadBlock) >= 0
+	return true
 }

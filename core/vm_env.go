@@ -34,15 +34,18 @@ type VMEnv struct {
 	typ    vm.Type
 	// structured logging
 	logs []vm.StructLog
+	// scratch
+	scratch *vm.ScratchDatabase
 }
 
 func NewEnv(state *state.StateDB, chain *BlockChain, msg Message, header *types.Header) *VMEnv {
 	return &VMEnv{
-		chain:  chain,
-		state:  state,
-		header: header,
-		msg:    msg,
-		typ:    vm.StdVmTy,
+		chain:   chain,
+		state:   state,
+		header:  header,
+		msg:     msg,
+		typ:     vm.StdVmTy,
+		scratch: vm.NewScratchDatabase(),
 	}
 }
 
@@ -73,6 +76,10 @@ func (self *VMEnv) AddLog(log *vm.Log) {
 }
 func (self *VMEnv) CanTransfer(from common.Address, balance *big.Int) bool {
 	return self.state.GetBalance(from).Cmp(balance) >= 0
+}
+
+func (self *VMEnv) Scratch() *vm.ScratchDatabase {
+	return self.scratch
 }
 
 func (self *VMEnv) MakeSnapshot() vm.Database {
