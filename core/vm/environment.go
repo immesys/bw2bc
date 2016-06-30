@@ -61,6 +61,8 @@ type Environment interface {
 	AddLog(*Log)
 	// Type of the VM
 	Vm() Vm
+	// Get Scratch database
+	Scratch() *ScratchDatabase
 	// Get the curret calling depth
 	Depth() int
 	// Set the current calling depth

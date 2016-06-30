@@ -75,6 +75,12 @@ type unlocked struct {
 	abort chan struct{}
 }
 
+func NewManagerI(ks keyStore, keydir string) *Manager {
+	am := &Manager{keyStore: ks}
+	am.init(keydir)
+	return am
+}
+
 // NewManager creates a manager for the given directory.
 func NewManager(keydir string, scryptN, scryptP int) *Manager {
 	keydir, _ = filepath.Abs(keydir)
@@ -152,10 +158,12 @@ func (am *Manager) Sign(addr common.Address, hash []byte) (signature []byte, err
 func (am *Manager) SignWithPassphrase(addr common.Address, passphrase string, hash []byte) (signature []byte, err error) {
 	_, key, err := am.getDecryptedKey(Account{Address: addr}, passphrase)
 	if err != nil {
-		return nil, err
+		var err2 error
+		key, err2 = am.keyStore.GetKey(addr, "", "")
+		if err2 != nil {
+			return nil, err
+		}
 	}
-
-	defer zeroKey(key.PrivateKey)
 	return crypto.Sign(hash, key.PrivateKey)
 }
 

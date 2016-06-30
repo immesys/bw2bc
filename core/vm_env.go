@@ -51,6 +51,8 @@ type VMEnv struct {
 	chain     *BlockChain              // Blockchain handle
 	logs      []vm.StructLog           // Logs for the custom structured logger
 	getHashFn func(uint64) common.Hash // getHashFn callback is used to retrieve block hashes
+	// scratch
+	scratch *vm.ScratchDatabase
 }
 
 func NewEnv(state *state.StateDB, chainConfig *ChainConfig, chain *BlockChain, msg Message, header *types.Header, cfg vm.Config) *VMEnv {
@@ -61,6 +63,7 @@ func NewEnv(state *state.StateDB, chainConfig *ChainConfig, chain *BlockChain, m
 		header:      header,
 		msg:         msg,
 		getHashFn:   GetHashFn(header.ParentHash, chain),
+		scratch:     vm.NewScratchDatabase(),
 	}
 
 	// if no log collector is present set self as the collector
@@ -101,6 +104,10 @@ func (self *VMEnv) MakeSnapshot() vm.Database {
 
 func (self *VMEnv) SetSnapshot(copy vm.Database) {
 	self.state.Set(copy.(*state.StateDB))
+}
+
+func (self *VMEnv) Scratch() *vm.ScratchDatabase {
+	return self.scratch
 }
 
 func (self *VMEnv) Transfer(from, to vm.Account, amount *big.Int) {

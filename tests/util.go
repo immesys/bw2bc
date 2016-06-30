@@ -179,6 +179,10 @@ func NewEnv(ruleSet RuleSet, state *state.StateDB) *Env {
 	return env
 }
 
+func (self *Env) Scratch() *vm.ScratchDatabase {
+	return nil
+}
+
 func (self *Env) StructLogs() []vm.StructLog {
 	return self.logs
 }

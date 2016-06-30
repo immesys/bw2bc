@@ -65,6 +65,13 @@ func New(env Environment, cfg Config) *EVM {
 
 // Run loops and evaluates the contract's code with the given input data
 func (evm *EVM) Run(contract *Contract, input []byte) (ret []byte, err error) {
+	// Clear the scratch database after exiting every stack of contracts
+	defer func() {
+		if evm.env.Depth() == 0 {
+			evm.env.Scratch().Clear()
+		}
+	}()
+
 	evm.env.SetDepth(evm.env.Depth() + 1)
 	defer evm.env.SetDepth(evm.env.Depth() - 1)
 
@@ -378,7 +385,7 @@ func calculateGasAndSize(env Environment, contract *Contract, caller ContractRef
 func (evm *EVM) RunPrecompiled(p *PrecompiledAccount, input []byte, contract *Contract) (ret []byte, err error) {
 	gas := p.Gas(len(input))
 	if contract.UseGas(gas) {
-		ret = p.Call(input)
+		ret = p.Call(input, evm.env)
 
 		return ret, nil
 	} else {
