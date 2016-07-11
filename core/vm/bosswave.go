@@ -101,7 +101,9 @@ func bwUnpackDOT(args []byte, env Environment) []byte {
 	} else {
 		return res
 	}
-	res[1*32] = byte(len(dot.GetRevokers()))
+	//FML
+	//res[1*32] = byte(len(dot.GetRevokers()))
+	res[1*32+31] = byte(len(dot.GetRevokers()))
 	if ronum == objects.ROPermissionDOT {
 		res[2*32+31] = 1
 	}
@@ -221,7 +223,7 @@ func bwSliceByte32(args []byte, env Environment) []byte {
 	return blob[idx : idx+32]
 }
 
-// UnpackRevocation(bytes) (bool valid, bytes32 vk, bytes32 target)
+// UnpackRevocation(bytes) (bool valid, bytes32 target, bytes32 vk)
 // sig: UnpackRevocation(bytes) (bool,bytes32,bytes32)
 var SigUnpackRevocation = []byte{0xe5, 0x73, 0x1b, 0x77} //UnpackRevocation(bytes)
 func bwUnpackRevocation(args []byte, env Environment) []byte {
