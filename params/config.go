@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/immesys/bw2bc/common"
 )
 
 // MainnetChainConfig is the chain parameters to run a node on the main network.

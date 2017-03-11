@@ -22,8 +22,8 @@ import (
 	"errors"
 	"math/big"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/common"
+	ethereum "github.com/immesys/bw2bc"
+	"github.com/immesys/bw2bc/common"
 )
 
 // Subscription represents an event subscription where events are

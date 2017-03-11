@@ -20,11 +20,11 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/math"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/log"
+	"github.com/immesys/bw2bc/params"
 )
 
 var (

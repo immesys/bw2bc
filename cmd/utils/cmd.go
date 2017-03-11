@@ -26,12 +26,12 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/internal/debug"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/internal/debug"
+	"github.com/immesys/bw2bc/log"
+	"github.com/immesys/bw2bc/node"
+	"github.com/immesys/bw2bc/rlp"
 )
 
 const (

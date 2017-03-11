@@ -24,14 +24,14 @@ import (
 	"net"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/sha3"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/ethereum/go-ethereum/p2p/netutil"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/mclock"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/crypto/sha3"
+	"github.com/immesys/bw2bc/log"
+	"github.com/immesys/bw2bc/p2p/nat"
+	"github.com/immesys/bw2bc/p2p/netutil"
+	"github.com/immesys/bw2bc/rlp"
 )
 
 var (

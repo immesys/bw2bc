@@ -19,9 +19,9 @@
 package geth
 
 import (
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/p2p/discv5"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/p2p/discv5"
+	"github.com/immesys/bw2bc/params"
 )
 
 // MainnetChainConfig returns the chain configurations for the main Ethereum network.

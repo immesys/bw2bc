@@ -23,9 +23,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/params"
 )
 
 type account struct{}

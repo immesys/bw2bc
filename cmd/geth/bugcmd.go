@@ -26,8 +26,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/cmd/internal/browser"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/cmd/internal/browser"
+	"github.com/immesys/bw2bc/params"
 
 	cli "gopkg.in/urfave/cli.v1"
 )

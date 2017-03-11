@@ -28,9 +28,9 @@ import (
 	"testing"
 	"testing/quick"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/ethdb"
 )
 
 // Tests that updating a state trie does not leak any database writes prior to

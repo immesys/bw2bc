@@ -22,7 +22,7 @@ import (
 	"runtime"
 	"sync/atomic"
 
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/immesys/bw2bc/log"
 
 	"golang.org/x/net/context"
 	"gopkg.in/fatih/set.v0"

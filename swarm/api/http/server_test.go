@@ -24,9 +24,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/swarm/api"
-	"github.com/ethereum/go-ethereum/swarm/storage"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/swarm/api"
+	"github.com/immesys/bw2bc/swarm/storage"
 )
 
 func TestBzzrGetPath(t *testing.T) {

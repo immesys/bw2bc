@@ -31,8 +31,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/immesys/bw2bc/cmd/utils"
+	"github.com/immesys/bw2bc/log"
 	"gopkg.in/urfave/cli.v1"
 )
 

@@ -27,12 +27,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/pow"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/log"
+	"github.com/immesys/bw2bc/params"
+	"github.com/immesys/bw2bc/pow"
 	"github.com/hashicorp/golang-lru"
 )
 

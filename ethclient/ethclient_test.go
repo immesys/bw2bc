@@ -16,7 +16,7 @@
 
 package ethclient
 
-import "github.com/ethereum/go-ethereum"
+import "github.com/immesys/bw2bc"
 
 // Verify that Client implements the ethereum interfaces.
 var (

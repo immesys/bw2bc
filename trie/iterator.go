@@ -18,7 +18,7 @@ package trie
 
 import (
 	"bytes"
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/immesys/bw2bc/common"
 )
 
 // Iterator is a key-value trie iterator that traverses a Trie.

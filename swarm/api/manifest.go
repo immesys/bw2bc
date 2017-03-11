@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/swarm/storage"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/log"
+	"github.com/immesys/bw2bc/swarm/storage"
 )
 
 const (

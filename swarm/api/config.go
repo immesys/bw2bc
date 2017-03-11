@@ -24,11 +24,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/swarm/network"
-	"github.com/ethereum/go-ethereum/swarm/services/swap"
-	"github.com/ethereum/go-ethereum/swarm/storage"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/swarm/network"
+	"github.com/immesys/bw2bc/swarm/services/swap"
+	"github.com/immesys/bw2bc/swarm/storage"
 )
 
 const (

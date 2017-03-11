@@ -22,10 +22,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/light"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/immesys/bw2bc/common/mclock"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/light"
+	"github.com/immesys/bw2bc/log"
 	"golang.org/x/net/context"
 )
 

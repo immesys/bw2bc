@@ -20,16 +20,16 @@ package ethapi
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc/accounts"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/eth/downloader"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/event"
+	"github.com/immesys/bw2bc/params"
+	"github.com/immesys/bw2bc/rpc"
 	"golang.org/x/net/context"
 )
 

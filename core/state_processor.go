@@ -19,11 +19,11 @@ package core
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/core/state"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/core/vm"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/params"
 )
 
 var (

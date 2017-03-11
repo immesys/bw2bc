@@ -22,9 +22,9 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/math"
+	"github.com/immesys/bw2bc/core/types"
 )
 
 type Storage map[common.Hash]common.Hash

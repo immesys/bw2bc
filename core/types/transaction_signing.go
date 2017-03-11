@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/params"
 )
 
 var ErrInvalidChainId = errors.New("invalid chaid id for signer")

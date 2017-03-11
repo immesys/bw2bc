@@ -24,7 +24,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
+	"github.com/immesys/bw2bc/cmd/utils"
 	"gopkg.in/urfave/cli.v1"
 )
 

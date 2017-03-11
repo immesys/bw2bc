@@ -24,14 +24,14 @@ import (
 	"math/big"
 	"path/filepath"
 
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/ethstats"
-	"github.com/ethereum/go-ethereum/les"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/ethereum/go-ethereum/params"
-	whisper "github.com/ethereum/go-ethereum/whisper/whisperv2"
+	"github.com/immesys/bw2bc/eth"
+	"github.com/immesys/bw2bc/ethclient"
+	"github.com/immesys/bw2bc/ethstats"
+	"github.com/immesys/bw2bc/les"
+	"github.com/immesys/bw2bc/node"
+	"github.com/immesys/bw2bc/p2p/nat"
+	"github.com/immesys/bw2bc/params"
+	whisper "github.com/immesys/bw2bc/whisper/whisperv2"
 )
 
 // NodeConfig represents the collection of configuration values to fine tune the Geth

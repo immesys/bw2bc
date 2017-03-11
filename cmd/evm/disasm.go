@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/ethereum/go-ethereum/core/asm"
+	"github.com/immesys/bw2bc/core/asm"
 	cli "gopkg.in/urfave/cli.v1"
 	"strings"
 )

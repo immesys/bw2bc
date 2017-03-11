@@ -19,8 +19,8 @@ package light
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/crypto"
 	"golang.org/x/net/context"
 )
 

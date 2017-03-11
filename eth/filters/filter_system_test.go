@@ -24,13 +24,13 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/event"
+	"github.com/immesys/bw2bc/params"
+	"github.com/immesys/bw2bc/rpc"
 )
 
 type testBackend struct {

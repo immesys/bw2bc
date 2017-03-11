@@ -21,7 +21,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common/mclock"
+	"github.com/immesys/bw2bc/common/mclock"
 )
 
 const rcConst = 1000000

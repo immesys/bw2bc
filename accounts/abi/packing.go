@@ -19,8 +19,8 @@ package abi
 import (
 	"reflect"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/math"
 )
 
 // packBytesSlice packs the given bytes as [L, V] as the canonical representation
