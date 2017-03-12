@@ -23,11 +23,13 @@ import (
 	"io"
 	"math/big"
 	mrand "math/rand"
+	"os"
 	"runtime"
 	"sync"
 	"sync/atomic"
 	"time"
 
+	"github.com/hashicorp/golang-lru"
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/common/mclock"
 	"github.com/immesys/bw2bc/core/state"
@@ -42,7 +44,6 @@ import (
 	"github.com/immesys/bw2bc/pow"
 	"github.com/immesys/bw2bc/rlp"
 	"github.com/immesys/bw2bc/trie"
-	"github.com/hashicorp/golang-lru"
 )
 
 var (
@@ -276,6 +277,11 @@ func (bc *BlockChain) SetHead(head uint64) {
 // FastSyncCommitHead sets the current head block to the one defined by the hash
 // irrelevant what the chain contents were prior.
 func (self *BlockChain) FastSyncCommitHead(hash common.Hash) error {
+	if os.Getenv("EXIT_ON_FAST_COMPLETE") != "" {
+		p, _ := os.FindProcess(os.Getpid())
+		p.Signal(os.Interrupt)
+		return nil
+	}
 	// Make sure that both the block as well at its state trie exists
 	block := self.GetBlockByHash(hash)
 	if block == nil {
