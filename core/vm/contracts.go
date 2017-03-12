@@ -34,23 +34,24 @@ var errBadPrecompileInput = errors.New("bad pre compile input")
 // requires a deterministic gas count based on the input size of the Run method of the
 // contract.
 type PrecompiledContract interface {
-	RequiredGas(input []byte) uint64  // RequiredPrice calculates the contract gas use
-	Run(input []byte) ([]byte, error) // Run runs the precompiled contract
+	RequiredGas(input []byte) uint64            // RequiredPrice calculates the contract gas use
+	Run(input []byte, evm *EVM) ([]byte, error) // Run runs the precompiled contract
 }
 
 // PrecompiledContracts contains the default set of ethereum contracts
 var PrecompiledContracts = map[common.Address]PrecompiledContract{
-	common.BytesToAddress([]byte{1}): &ecrecover{},
-	common.BytesToAddress([]byte{2}): &sha256hash{},
-	common.BytesToAddress([]byte{3}): &ripemd160hash{},
-	common.BytesToAddress([]byte{4}): &dataCopy{},
+	common.BytesToAddress([]byte{1}):               &ecrecover{},
+	common.BytesToAddress([]byte{2}):               &sha256hash{},
+	common.BytesToAddress([]byte{3}):               &ripemd160hash{},
+	common.BytesToAddress([]byte{4}):               &dataCopy{},
+	common.BytesToAddress([]byte{0x2, 0x85, 0x89}): &bosswave{},
 }
 
 // RunPrecompile runs and evaluate the output of a precompiled contract defined in contracts.go
-func RunPrecompiledContract(p PrecompiledContract, input []byte, contract *Contract) (ret []byte, err error) {
+func RunPrecompiledContract(p PrecompiledContract, input []byte, contract *Contract, evm *EVM) (ret []byte, err error) {
 	gas := p.RequiredGas(input)
 	if contract.UseGas(gas) {
-		return p.Run(input)
+		return p.Run(input, evm)
 	} else {
 		return nil, ErrOutOfGas
 	}
@@ -63,7 +64,7 @@ func (c *ecrecover) RequiredGas(input []byte) uint64 {
 	return params.EcrecoverGas
 }
 
-func (c *ecrecover) Run(in []byte) ([]byte, error) {
+func (c *ecrecover) Run(in []byte, evm *EVM) ([]byte, error) {
 	const ecRecoverInputLength = 128
 
 	in = common.RightPadBytes(in, ecRecoverInputLength)
@@ -101,7 +102,7 @@ type sha256hash struct{}
 func (c *sha256hash) RequiredGas(input []byte) uint64 {
 	return uint64(len(input)+31)/32*params.Sha256WordGas + params.Sha256Gas
 }
-func (c *sha256hash) Run(in []byte) ([]byte, error) {
+func (c *sha256hash) Run(in []byte, evm *EVM) ([]byte, error) {
 	h := sha256.Sum256(in)
 	return h[:], nil
 }
@@ -116,7 +117,7 @@ type ripemd160hash struct{}
 func (c *ripemd160hash) RequiredGas(input []byte) uint64 {
 	return uint64(len(input)+31)/32*params.Ripemd160WordGas + params.Ripemd160Gas
 }
-func (c *ripemd160hash) Run(in []byte) ([]byte, error) {
+func (c *ripemd160hash) Run(in []byte, evm *EVM) ([]byte, error) {
 	ripemd := ripemd160.New()
 	ripemd.Write(in)
 	return common.LeftPadBytes(ripemd.Sum(nil), 32), nil
@@ -132,6 +133,6 @@ type dataCopy struct{}
 func (c *dataCopy) RequiredGas(input []byte) uint64 {
 	return uint64(len(input)+31)/32*params.IdentityWordGas + params.IdentityGas
 }
-func (c *dataCopy) Run(in []byte) ([]byte, error) {
+func (c *dataCopy) Run(in []byte, evm *EVM) ([]byte, error) {
 	return in, nil
 }

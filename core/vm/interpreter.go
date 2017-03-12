@@ -99,6 +99,11 @@ func (in *Interpreter) enforceRestrictions(op OpCode, operation operation, stack
 func (in *Interpreter) Run(snapshot int, contract *Contract, input []byte) (ret []byte, err error) {
 	in.evm.depth++
 	defer func() { in.evm.depth-- }()
+	defer func() {
+		if in.evm.depth == 0 {
+			in.evm.Scratch().Clear()
+		}
+	}()
 
 	// Don't bother with the execution if there's no code.
 	if len(contract.Code) == 0 {

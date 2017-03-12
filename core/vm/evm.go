@@ -98,6 +98,9 @@ type EVM struct {
 	// abort is used to abort the EVM calling operations
 	// NOTE: must be set atomically
 	abort int32
+
+	// scratch
+	scratch *ScratchDatabase
 }
 
 // NewEVM retutrns a new EVM evmironment. The returned EVM is not thread safe
@@ -109,14 +112,20 @@ func NewEVM(ctx Context, statedb StateDB, chainConfig *params.ChainConfig, vmCon
 		vmConfig:    vmConfig,
 		chainConfig: chainConfig,
 		chainRules:  chainConfig.Rules(ctx.BlockNumber),
+		scratch:     NewScratchDatabase(),
 	}
 
 	evm.interpreter = NewInterpreter(evm, vmConfig)
 	return evm
 }
 
-// Cancel cancels any running EVM operation. This may be called concurrently and
-// it's safe to be called multiple times.
+// Get Scratch database
+func (evm *EVM) Scratch() *ScratchDatabase {
+	return evm.scratch
+}
+
+// Cancel cancels any running EVM operation. This may be called concurrently and it's safe to be
+// called multiple times.
 func (evm *EVM) Cancel() {
 	atomic.StoreInt32(&evm.abort, 1)
 }
