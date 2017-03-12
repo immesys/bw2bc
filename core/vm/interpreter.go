@@ -84,10 +84,15 @@ func NewInterpreter(env *EVM, cfg Config) *Interpreter {
 func (evm *Interpreter) Run(contract *Contract, input []byte) (ret []byte, err error) {
 	evm.env.depth++
 	defer func() { evm.env.depth-- }()
-
+	// Clear the scratch database after exiting every stack of contracts
+	defer func() {
+		if evm.env.depth == 0 {
+			evm.env.Scratch().Clear()
+		}
+	}()
 	if contract.CodeAddr != nil {
 		if p := PrecompiledContracts[*contract.CodeAddr]; p != nil {
-			return RunPrecompiledContract(p, input, contract)
+			return RunPrecompiledContract(p, input, contract, evm.env)
 		}
 	}
 

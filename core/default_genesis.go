@@ -29,4 +29,6 @@ package core
 //     }
 // }
 
+const defaultTestnetGenesisBlock = "crash"
+const defaultDevnetGenesisBlock = "crash"
 const defaultGenesisBlock = "H4sICKu9+VYAA2Zvb2dlbi5qc29uAKvm4lTKy89LTlWyUlAyqEgyMDVNSU1MSUpNTYPRSjpANSWZuanFJYm5BRB1BmDBgsSi1LwSj8TiDKgohQBsaGpFSVGiS2JJIrJN6YnFPpm5mSUQMQsk5SmZaWmZyaU5JZUgOSOERG5mRQZ1XZacn5mXlFgMDSpjIgFYa2JOTn4yUF81F2ctVy0XAF+q+gd2AQAA"

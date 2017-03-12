@@ -77,6 +77,9 @@ type EVM struct {
 	// abort is used to abort the EVM calling operations
 	// NOTE: must be set atomically
 	abort int32
+
+	// scratch
+	scratch *ScratchDatabase
 }
 
 // NewEVM retutrns a new EVM evmironment.
@@ -86,10 +89,16 @@ func NewEVM(ctx Context, statedb StateDB, chainConfig *params.ChainConfig, vmCon
 		StateDB:     statedb,
 		vmConfig:    vmConfig,
 		chainConfig: chainConfig,
+		scratch:     NewScratchDatabase(),
 	}
 
 	evm.interpreter = NewInterpreter(evm, vmConfig)
 	return evm
+}
+
+// Get Scratch database
+func (evm *EVM) Scratch() *ScratchDatabase {
+	return evm.scratch
 }
 
 // Cancel cancels any running EVM operation. This may be called concurrently and it's safe to be

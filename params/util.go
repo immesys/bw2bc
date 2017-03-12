@@ -24,20 +24,20 @@ import (
 
 var (
 	TestNetGenesisHash = common.HexToHash("0x41941023680923e0fe4d74a34bdac8141f2540e3ae90623718e47d66d1ca4a2d") // Testnet genesis hash to enforce below configs on
-	MainNetGenesisHash = common.HexToHash("0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3") // Mainnet genesis hash to enforce below configs on
+	MainNetGenesisHash = common.HexToHash("0xf2d45e53cf291f19844cb964ae6b5ef448267b6c3f5a7a47a2d4c66c01c89a16") // Mainnet genesis hash to enforce below configs on
 
-	TestNetHomesteadBlock = big.NewInt(0)       // Testnet homestead block
-	MainNetHomesteadBlock = big.NewInt(1150000) // Mainnet homestead block
+	TestNetHomesteadBlock = big.NewInt(0) // Testnet homestead block
+	MainNetHomesteadBlock = big.NewInt(0) // Mainnet homestead block
 
 	TestNetHomesteadGasRepriceBlock = big.NewInt(0)       // Testnet gas reprice block
-	MainNetHomesteadGasRepriceBlock = big.NewInt(2463000) // Mainnet gas reprice block
+	MainNetHomesteadGasRepriceBlock = big.NewInt(2150000) // Mainnet gas reprice block
 
 	TestNetHomesteadGasRepriceHash = common.HexToHash("0x41941023680923e0fe4d74a34bdac8141f2540e3ae90623718e47d66d1ca4a2d") // Testnet gas reprice block hash (used by fast sync)
 	MainNetHomesteadGasRepriceHash = common.HexToHash("0x2086799aeebeae135c246c65021c82b4e15a2c451340993aacfd2751886514f0") // Mainnet gas reprice block hash (used by fast sync)
 
 	TestNetSpuriousDragon = big.NewInt(10)
-	MainNetSpuriousDragon = big.NewInt(2675000)
+	MainNetSpuriousDragon = big.NewInt(2150000)
 
-	TestNetChainID = big.NewInt(3) // Test net default chain ID
-	MainNetChainID = big.NewInt(1) // main net default chain ID
+	TestNetChainID = big.NewInt(3)     // Test net default chain ID
+	MainNetChainID = big.NewInt(28589) // main net default chain ID
 )

@@ -264,11 +264,12 @@ func ValidateHeader(config *params.ChainConfig, pow pow.PoW, header *types.Heade
 // the difficulty that a new block should have when created at time
 // given the parent block's time and difficulty.
 func CalcDifficulty(config *params.ChainConfig, time, parentTime uint64, parentNumber, parentDiff *big.Int) *big.Int {
-	if config.IsHomestead(new(big.Int).Add(parentNumber, common.Big1)) {
-		return calcDifficultyHomestead(time, parentTime, parentNumber, parentDiff)
-	} else {
-		return calcDifficultyFrontier(time, parentTime, parentNumber, parentDiff)
-	}
+	// if config.IsHomestead(new(big.Int).Add(parentNumber, common.Big1)) {
+	// 	return calcDifficultyHomestead(time, parentTime, parentNumber, parentDiff)
+	// } else {
+	// 	return calcDifficultyFrontier(time, parentTime, parentNumber, parentDiff)
+	// }
+	return calcDifficultyBW2BC(time, parentTime, parentNumber, parentDiff)
 }
 
 func calcDifficultyHomestead(time, parentTime uint64, parentNumber, parentDiff *big.Int) *big.Int {
@@ -315,6 +316,44 @@ func calcDifficultyHomestead(time, parentTime uint64, parentNumber, parentDiff *
 		y.Sub(periodCount, common.Big2)
 		y.Exp(common.Big2, y, nil)
 		x.Add(x, y)
+	}
+
+	return x
+}
+
+//Just like homestead but without the bomb.
+func calcDifficultyBW2BC(time, parentTime uint64, parentNumber, parentDiff *big.Int) *big.Int {
+	// https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2.mediawiki
+	// algorithm:
+	// diff = (parent_diff +
+	//         (parent_diff / 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99))
+	//        ) + 2^(periodCount - 2)
+
+	bigTime := new(big.Int).SetUint64(time)
+	bigParentTime := new(big.Int).SetUint64(parentTime)
+
+	// holds intermediate values to make the algo easier to read & audit
+	x := new(big.Int)
+	y := new(big.Int)
+
+	// 1 - (block_timestamp -parent_timestamp) // 10
+	x.Sub(bigTime, bigParentTime)
+	x.Div(x, big10)
+	x.Sub(common.Big1, x)
+
+	// max(1 - (block_timestamp - parent_timestamp) // 10, -99)))
+	if x.Cmp(bigMinus99) < 0 {
+		x.Set(bigMinus99)
+	}
+
+	// (parent_diff + parent_diff // 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99))
+	y.Div(parentDiff, params.DifficultyBoundDivisor)
+	x.Mul(y, x)
+	x.Add(parentDiff, x)
+
+	// minimum difficulty can ever be (before exponential factor)
+	if x.Cmp(params.MinimumDifficulty) < 0 {
+		x = params.MinimumDifficulty
 	}
 
 	return x
