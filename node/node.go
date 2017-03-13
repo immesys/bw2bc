@@ -81,6 +81,11 @@ type Node struct {
 	lock sync.RWMutex
 }
 
+func (n *Node) SetAccMan(ac *accounts.Manager) {
+	n.accman = ac
+	n.ephemeralKeystore = ""
+}
+
 // New creates a new P2P node, ready for protocol registration.
 func New(conf *Config) (*Node, error) {
 	// Copy config and resolve the datadir so future changes to the current

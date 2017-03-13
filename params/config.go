@@ -27,7 +27,7 @@ import (
 var MainnetChainConfig = &ChainConfig{
 	ChainId:        MainNetChainID,
 	HomesteadBlock: MainNetHomesteadBlock,
-	DAOForkBlock:   MainNetDAOForkBlock,
+	DAOForkBlock:   nil,
 	DAOForkSupport: true,
 	EIP150Block:    MainNetHomesteadGasRepriceBlock,
 	EIP150Hash:     MainNetHomesteadGasRepriceHash,
