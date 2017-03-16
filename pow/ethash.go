@@ -384,9 +384,13 @@ func NewSharedEthash() PoW {
 	return sharedEthash
 }
 
+var glock sync.Mutex
+
 // Verify implements PoW, checking whether the given block satisfies the PoW
 // difficulty requirements.
 func (ethash *Ethash) Verify(block Block) error {
+	glock.Lock()
+	// defer glock.Unlock()
 	// Sanity check that the block number is below the lookup table size (60M blocks)
 	number := block.NumberU64()
 	if number/epochLength >= uint64(len(cacheSizes)) {
@@ -405,7 +409,11 @@ func (ethash *Ethash) Verify(block Block) error {
 	if ethash.tester {
 		size = 32 * 1024
 	}
-	digest, result := hashimotoLight(size, cache, block.HashNoNonce().Bytes(), block.Nonce())
+	cc := make([]uint32, len(cache))
+	copy(cc, cache)
+	glock.Unlock()
+	//fmt.Printf("verifying block diff=%d hnn=%d nonce=%d num=%d\n", block.Difficulty(), block.HashNoNonce(), block.Nonce(), block.NumberU64())
+	digest, result := hashimotoLight(size, cc, block.HashNoNonce().Bytes(), block.Nonce())
 	if !bytes.Equal(block.MixDigest().Bytes(), digest) {
 		return ErrInvalidMixDigest
 	}
@@ -474,6 +482,7 @@ func (ethash *Ethash) cache(block uint64) []uint32 {
 	if future != nil {
 		go future.generate(ethash.cachedir, ethash.cachesondisk, ethash.tester)
 	}
+
 	return current.cache
 }
 
