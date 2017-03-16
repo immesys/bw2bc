@@ -483,6 +483,7 @@ func (ethash *Ethash) cache(block uint64) []uint32 {
 	if future != nil {
 		go future.generate(ethash.cachedir, ethash.cachesondisk, ethash.tester)
 	}
+
 	return current.cache
 }
 
