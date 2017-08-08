@@ -403,63 +403,64 @@ func getBytesParam(in []byte, paramnumber int) []byte {
 
 type bosswave struct{}
 
-func (b *bosswave) RequiredGas(inputSize int) uint64 {
+func (b *bosswave) RequiredGas(input []byte) uint64 {
 	return BWGas
 }
-func (b *bosswave) Run(in []byte, env *EVM) (rv []byte) {
+func (b *bosswave) Run(in []byte, env *EVM) (rv []byte, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Printf("BW PC FAULT: %+v\n", r)
 			log.Error("\u2622 BW PC FAULT: %+v", r)
 			rv = nil
+			err = fmt.Errorf("BW PC FAULT")
 			return
 		}
 	}()
 	log.Trace("\u21C6 BW PC GOT %d : %v\n", len(in), hex.EncodeToString(in))
 	if len(in) < 4 {
-		return nil
+		return nil, fmt.Errorf("Invalid thingy")
 	}
 	sig := in[:4]
 	args := in[4:]
 	switch {
 	//Low level
 	case bytes.Equal(sig, SigVerifyEd25519):
-		return bwVerifyEd25519(args, env)
+		return bwVerifyEd25519(args, env), nil
 	case bytes.Equal(sig, SigVerifyEd25519Packed):
-		return bwVerifyEd25519Packed(args, env)
+		return bwVerifyEd25519Packed(args, env), nil
 	case bytes.Equal(sig, SigSliceByte32):
-		return bwSliceByte32(args, env)
+		return bwSliceByte32(args, env), nil
 		//Entities
 	case bytes.Equal(sig, SigUnpackEntity):
-		return bwUnpackEntity(args, env)
+		return bwUnpackEntity(args, env), nil
 	case bytes.Equal(sig, SigGetEntityDelegatedRevoker):
-		return bwGetEntityDelegatedRevoker(args, env)
+		return bwGetEntityDelegatedRevoker(args, env), nil
 		//DOTs
 	case bytes.Equal(sig, SigUnpackDOT):
-		return bwUnpackDOT(args, env)
+		return bwUnpackDOT(args, env), nil
 	case bytes.Equal(sig, SigGetDOTDelegatedRevoker):
-		return bwGetDOTDelegatedRevoker(args, env)
+		return bwGetDOTDelegatedRevoker(args, env), nil
 	case bytes.Equal(sig, SigGetDOTNumRevokableHashes):
-		return bwGetDOTNumRevokableHashes(args, env)
+		return bwGetDOTNumRevokableHashes(args, env), nil
 	case bytes.Equal(sig, SigGetDOTRevokableHash):
-		return bwGetDOTRevokableHash(args, env)
+		return bwGetDOTRevokableHash(args, env), nil
 	//Chains
 	case bytes.Equal(sig, SigUnpackAccessDChain):
-		return bwUnpackAccessDChain(args, env)
+		return bwUnpackAccessDChain(args, env), nil
 	case bytes.Equal(sig, SigGetDChainDOTHash):
-		return bwGetDChainDOTHash(args, env)
+		return bwGetDChainDOTHash(args, env), nil
 	case bytes.Equal(sig, SigGetDChainNumRevokableHashes):
-		return bwGetDChainNumRevokableHashes(args, env)
+		return bwGetDChainNumRevokableHashes(args, env), nil
 	case bytes.Equal(sig, SigGetDChainRevokableHash):
-		return bwGetDChainRevokableHash(args, env)
+		return bwGetDChainRevokableHash(args, env), nil
 	case bytes.Equal(sig, SigADChainGrants):
-		return bwADChainGrants(args, env)
+		return bwADChainGrants(args, env), nil
 	//Revocations
 	case bytes.Equal(sig, SigUnpackRevocation):
-		return bwUnpackRevocation(args, env)
+		return bwUnpackRevocation(args, env), nil
 
 	default:
 		log.Trace("Hit default sig comparison: sig:", sig)
-		return nil
+		return nil, fmt.Errorf("not a bw2 function")
 	}
 }

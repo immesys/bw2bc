@@ -38,7 +38,7 @@ func run(evm *EVM, snapshot int, contract *Contract, input []byte) ([]byte, erro
 	if contract.CodeAddr != nil {
 		precompiledContracts := PrecompiledContracts
 		if p := precompiledContracts[*contract.CodeAddr]; p != nil {
-			return RunPrecompiledContract(p, input, contract)
+			return RunPrecompiledContract(p, input, contract, evm)
 		}
 	}
 

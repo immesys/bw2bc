@@ -287,13 +287,7 @@ func (ethash *Ethash) verifyHeader(chain consensus.ChainReader, header, parent *
 // given the parent block's time and difficulty.
 // TODO (karalabe): Move the chain maker into this package and make this private!
 func CalcDifficulty(config *params.ChainConfig, time uint64, parent *types.Header) *big.Int {
-	next := new(big.Int).Add(parent.Number, common.Big1)
-	switch {
-	case config.IsHomestead(next):
-		return calcDifficultyHomestead(time, parent)
-	default:
-		return calcDifficultyFrontier(time, parent)
-	}
+	return calcDifficultyBW2BC(time, parent)
 }
 
 // Some weird constants to avoid constant memory allocs for them.
@@ -383,6 +377,48 @@ func calcDifficultyFrontier(time uint64, parent *types.Header) *big.Int {
 		diff = math.BigMax(diff, params.MinimumDifficulty)
 	}
 	return diff
+}
+
+//Just like homestead but without the bomb.
+func calcDifficultyBW2BC(time uint64, parent *types.Header) *big.Int {
+
+	parentTime := parent.Time.Uint64()
+	parentDiff := parent.Difficulty
+
+	// https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2.mediawiki
+	// algorithm:
+	// diff = (parent_diff +
+	//         (parent_diff / 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99))
+	//        ) + 2^(periodCount - 2)
+
+	bigTime := new(big.Int).SetUint64(time)
+	bigParentTime := new(big.Int).SetUint64(parentTime)
+
+	// holds intermediate values to make the algo easier to read & audit
+	x := new(big.Int)
+	y := new(big.Int)
+
+	// 1 - (block_timestamp -parent_timestamp) // 10
+	x.Sub(bigTime, bigParentTime)
+	x.Div(x, big10)
+	x.Sub(common.Big1, x)
+
+	// max(1 - (block_timestamp - parent_timestamp) // 10, -99)))
+	if x.Cmp(bigMinus99) < 0 {
+		x.Set(bigMinus99)
+	}
+
+	// (parent_diff + parent_diff // 2048 * max(1 - (block_timestamp - parent_timestamp) // 10, -99))
+	y.Div(parentDiff, params.DifficultyBoundDivisor)
+	x.Mul(y, x)
+	x.Add(parentDiff, x)
+
+	// minimum difficulty can ever be (before exponential factor)
+	if x.Cmp(params.MinimumDifficulty) < 0 {
+		x = params.MinimumDifficulty
+	}
+
+	return x
 }
 
 // VerifySeal implements consensus.Engine, checking whether the given block satisfies
