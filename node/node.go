@@ -27,13 +27,13 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/internal/debug"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc/accounts"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/event"
+	"github.com/immesys/bw2bc/internal/debug"
+	"github.com/immesys/bw2bc/log"
+	"github.com/immesys/bw2bc/p2p"
+	"github.com/immesys/bw2bc/rpc"
 	"github.com/syndtr/goleveldb/leveldb/storage"
 )
 

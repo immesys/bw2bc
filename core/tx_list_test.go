@@ -21,8 +21,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/crypto"
 )
 
 // Tests that transactions can be added to strict lists and list contents and

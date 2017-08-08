@@ -19,9 +19,9 @@ package vm
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/math"
+	"github.com/immesys/bw2bc/params"
 )
 
 // memoryGasCosts calculates the quadratic gas for memory expansion. It does so

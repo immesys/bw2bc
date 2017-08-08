@@ -21,8 +21,8 @@ import (
 	mrand "math/rand"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/rlp"
 )
 
 func copyFromBuf(dst []byte, src []byte, beg int) int {

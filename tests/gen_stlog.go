@@ -5,8 +5,8 @@ package tests
 import (
 	"encoding/json"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/hexutil"
 )
 
 var _ = (*stLogMarshaling)(nil)

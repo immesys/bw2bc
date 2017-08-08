@@ -22,7 +22,7 @@ import (
 	"math/big"
 	"reflect"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/immesys/bw2bc/common"
 )
 
 // toGoSliceType parses the input and casts it to the proper slice defined by the ABI

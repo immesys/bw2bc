@@ -23,9 +23,9 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/immesys/bw2bc/accounts"
+	"github.com/immesys/bw2bc/accounts/keystore"
+	"github.com/immesys/bw2bc/crypto"
 )
 
 const (

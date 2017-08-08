@@ -22,12 +22,12 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/ethdb"
+	"github.com/immesys/bw2bc/params"
 )
 
 type testerVote struct {

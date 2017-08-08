@@ -22,8 +22,8 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/nat"
+	"github.com/immesys/bw2bc/p2p"
+	"github.com/immesys/bw2bc/p2p/nat"
 )
 
 const (

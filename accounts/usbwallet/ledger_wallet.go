@@ -31,13 +31,13 @@ import (
 	"sync"
 	"time"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/rlp"
+	ethereum "github.com/immesys/bw2bc"
+	"github.com/immesys/bw2bc/accounts"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/hexutil"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/log"
+	"github.com/immesys/bw2bc/rlp"
 	"github.com/karalabe/hid"
 )
 

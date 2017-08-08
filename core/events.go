@@ -17,8 +17,8 @@
 package core
 
 import (
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/core/types"
 )
 
 // TxPreEvent is posted when a transaction enters the transaction pool.

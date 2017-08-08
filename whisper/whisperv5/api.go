@@ -24,12 +24,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/p2p/discover"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/hexutil"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/log"
+	"github.com/immesys/bw2bc/p2p/discover"
+	"github.com/immesys/bw2bc/rpc"
 )
 
 const (

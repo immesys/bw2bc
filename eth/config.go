@@ -23,12 +23,12 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/hexutil"
+	"github.com/immesys/bw2bc/core"
+	"github.com/immesys/bw2bc/eth/downloader"
+	"github.com/immesys/bw2bc/eth/gasprice"
+	"github.com/immesys/bw2bc/params"
 )
 
 // DefaultConfig contains default settings for use on the Ethereum main net.

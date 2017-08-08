@@ -21,10 +21,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/discover"
+	"github.com/immesys/bw2bc/common/hexutil"
+	"github.com/immesys/bw2bc/crypto"
+	"github.com/immesys/bw2bc/p2p"
+	"github.com/immesys/bw2bc/p2p/discover"
 	"github.com/rcrowley/go-metrics"
 )
 

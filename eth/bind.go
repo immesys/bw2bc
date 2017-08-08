@@ -20,13 +20,13 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/internal/ethapi"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/immesys/bw2bc"
+	"github.com/immesys/bw2bc/common"
+	"github.com/immesys/bw2bc/common/hexutil"
+	"github.com/immesys/bw2bc/core/types"
+	"github.com/immesys/bw2bc/internal/ethapi"
+	"github.com/immesys/bw2bc/rlp"
+	"github.com/immesys/bw2bc/rpc"
 )
 
 // ContractBackend implements bind.ContractBackend with direct calls to Ethereum
