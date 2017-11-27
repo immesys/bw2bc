@@ -23,6 +23,7 @@ import (
 	"math/big"
 	"runtime"
 	"time"
+    "sync"
 
 	"github.com/immesys/bw2bc/common"
 	"github.com/immesys/bw2bc/common/math"
@@ -421,10 +422,14 @@ func calcDifficultyBW2BC(time uint64, parent *types.Header) *big.Int {
 	return x
 }
 
+var vsglock sync.Mutex
+
 // VerifySeal implements consensus.Engine, checking whether the given block satisfies
 // the PoW difficulty requirements.
 func (ethash *Ethash) VerifySeal(chain consensus.ChainReader, header *types.Header) error {
-	// If we're running a fake PoW, accept any seal as valid
+	vsglock.Lock()
+    defer vsglock.Unlock()
+    // If we're running a fake PoW, accept any seal as valid
 	if ethash.fakeMode {
 		time.Sleep(ethash.fakeDelay)
 		if ethash.fakeFail == header.Number.Uint64() {
