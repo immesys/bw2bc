@@ -36,10 +36,10 @@ var (
 		HomesteadBlock:  big.NewInt(0),
 		DAOForkBlock:    nil,
 		DAOForkSupport:  true,
-		EIP150Block:     big.NewInt(5950000),
+		EIP150Block:     big.NewInt(99950000),
 		EIP150Hash:      common.HexToHash("0x2086799aeebeae135c246c65021c82b4e15a2c451340993aacfd2751886514f0"),
-		EIP155Block:     big.NewInt(5950000),
-		EIP158Block:     big.NewInt(5950000),
+		EIP155Block:     big.NewInt(99950000),
+		EIP158Block:     big.NewInt(99950000),
 		MetropolisBlock: big.NewInt(math.MaxInt64), // Don't enable yet
 
 		Ethash: new(EthashConfig),
